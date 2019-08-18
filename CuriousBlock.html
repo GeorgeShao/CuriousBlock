@@ -2,11 +2,10 @@
 <html>
 
 <head>
-    <title>Processing.JS inside Webpages: Template</title>
+    <title>CuriousBlock</title>
 </head>
 
 <body>
-    <!--This draws the canvas on the webpage -->
     <canvas id="mycanvas"></canvas>
 </body>
 
@@ -20,7 +19,9 @@
             var screen_height = 800
             size(screen_width, screen_height);
             frameRate(60);
+
             //Main ProcessingJS code starts here
+            
             //Levels:
             // - Level 1
             // - Level 2
@@ -29,6 +30,7 @@
             // - Level 5
             // - Level 6
             // - Level 7
+
             /*Index:
             P=Player
             b=Block
@@ -40,6 +42,7 @@
             _=Ice
             @=Portal
             */
+            
             var levels = [
                 //Level 1
                 [
@@ -422,19 +425,19 @@
             ];
             var happy = 0;
             if (happy === 0) {
-                /* Variables */
+                
+                // Variables
                 var playerSize = [20, 20];
                 var pJumpHeight = 8;
                 var playerColor = color(0, 235, 255);
                 var grid = 30;
-                // Don't change this stuff //
-                /* More Variables */
-                var level = 1; //Level#-1
+                var level = 1;
                 var keys = [];
                 var transparence = 0;
                 var redTrans = 0;
                 var cam;
-                /* Key interaction */
+
+                // Key interactions
                 keyPressed = function () {
                     keys[keyCode] = true;
                 };
@@ -445,12 +448,11 @@
                     var isBetween = function (c, a, b) {
                         return (a - c) * (b - c) <= 0;
                     };
-                    /* Do ranges a and b overlap? */
                     var overlap = function (a, b) {
                         return isBetween(b.min, a.min, a.max) || isBetween(a.min, b.min, b.max);
                     };
                     /*
-                     * Project shape onto axis.  Simply
+                     * Project shape onto axis. Simply
                      * compute dot products between the
                      * shape's vertices and the axis, and
                      * keep track of the min and max values.
@@ -468,7 +470,7 @@
                             max: mx
                         };
                     };
-                    /* Compute all projections axes of shape. */
+                    // Compute all projections axes of shape.
                     var getAxes = function (shape) {
                         var axes = [];
                         for (var i = 0; i < shape.length; i++) {
@@ -490,16 +492,16 @@
                         var axes = getAxes(shapes[s]);
                         for (var i = 0; i < axes.length; i++) {
                             var axis = axes[i];
-                            /* Project both shapes onto this axis */
+                            // Project both shapes onto this axis
                             var p1 = project(shape1, axis);
                             var p2 = project(shape2, axis);
                             if (!overlap(p1, p2)) {
-                                /* The two shapes cannot overlap */
+                                // The two shapes cannot overlap
                                 return false;
                             }
                         }
                     }
-                    return true; /* they overlap */
+                    return true; // they overlap
                 };
                 //for triangular collisions
                 var Camera = function (x, y) {
@@ -646,6 +648,7 @@
                     };
                 };
                 var player = new Player(200, 100, playerSize[0], playerSize[1]);
+
                 /* Blocks */
                 var Block = function (x, y, w, h, type, i) {
                     this.x = x;
@@ -1114,7 +1117,6 @@
                             }
                         }
                     }
-                    //@transparency
                     {
                         fill(255, 255, 255, transparence);
                         noStroke();
@@ -1126,14 +1128,11 @@
                         transparence = constrain(transparence, 0, 255);
                         redTrans = constrain(redTrans, 0, 255);
                     }
-                    //background(255);
                 };
             }
         }
     };
-    // Get the canvas that ProcessingJS will use
     var canvas = document.getElementById("mycanvas");
-    // Pass the function to ProcessingJS constructor
     var processingInstance = new Processing(canvas, programCode);
 </script>
 
